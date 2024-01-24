@@ -7,7 +7,7 @@ contract EIP2612Token is ERC20{
     constructor() ERC20("EIP2612Token","2612Token"){
         
     }
-    
+
 
 
 }
