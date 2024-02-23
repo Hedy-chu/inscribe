@@ -10,8 +10,11 @@ contract InscribeERC20 is ERC20 {
     string private _name;
     string private _symbol;
 
-    constructor () ERC20("INSCRIBETOKEN","insToken") {
+    constructor() ERC20("INSCRIBETOKEN", "insToken") {}
 
+    modifier checkInscriber(address inscriber) {
+        require(inscriber == factory, "only factory can mint");
+        _;
     }
 
     function name() public view override returns (string memory) {
@@ -22,14 +25,16 @@ contract InscribeERC20 is ERC20 {
         return _symbol;
     }
 
-    function init(string memory name, string memory symbol) public  {
-        _name = name; 
+    function init(string memory name, string memory symbol) public {
+        _name = name;
         _symbol = symbol;
         factory = msg.sender;
     }
 
-    function inscribe(address to,uint256 amount) public {
-        _mint(to, amount); 
+    function inscribe(
+        address to,
+        uint256 amount
+    ) public checkInscriber(msg.sender) {
+        _mint(to, amount);
     }
-
 }
