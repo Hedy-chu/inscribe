@@ -3,8 +3,9 @@ pragma solidity ^0.8.13;
 
 import "@openzeppelin/contracts/token/ERC20/ERC20.sol";
 import "@openzeppelin/contracts/token/ERC20/utils/SafeERC20.sol";
+import "@openzeppelin/contracts/proxy/utils/Initializable.sol";
 
-contract InscribeERC20 is ERC20 {
+contract InscribeERC20 is ERC20,Initializable{
     using SafeERC20 for InscribeERC20;
     address factory;
     string private _name;
@@ -25,9 +26,9 @@ contract InscribeERC20 is ERC20 {
         return _symbol;
     }
 
-    function init(string memory name, string memory symbol) public {
-        _name = name;
-        _symbol = symbol;
+    function init(string memory inscribeName, string memory inscribeSymbol) public initializer{
+        _name = inscribeName;
+        _symbol = inscribeSymbol;
         factory = msg.sender;
     }
 
